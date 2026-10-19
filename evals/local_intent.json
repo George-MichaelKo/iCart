@@ -1,0 +1,32 @@
+[
+  {
+    "id": "complete_basket",
+    "request": "Find 1 litre of milk, 12 eggs, and 1 kg of rice under $30 for pickup in 60601 within 6 hours.",
+    "expected": {"items": [["milk", 1000, "ml"], ["eggs", 12, "count"], ["rice", 1000, "g"]], "budget_cents": 3000, "postal_code": "60601", "fulfillment": "pickup", "within_hours": 6, "total_cents": 1250}
+  },
+  {
+    "id": "tight_budget",
+    "request": "Get 1000 ml of milk, 12 eggs and 1000 g of rice for pickup in 60601 within 6 hours. My budget is $11.50.",
+    "expected": {"items": [["milk", 1000, "ml"], ["eggs", 12, "count"], ["rice", 1000, "g"]], "budget_cents": 1150, "postal_code": "60601", "fulfillment": "pickup", "within_hours": 6, "total_cents": 1100}
+  },
+  {
+    "id": "missing_budget",
+    "request": "Get 12 eggs for pickup in 60601 within 6 hours.",
+    "expected": {"null_field": "budget_cents"}
+  },
+  {
+    "id": "missing_quantity",
+    "request": "Get milk under $30 for delivery in 60601 within 6 hours.",
+    "expected": {"unknown_quantity": true}
+  },
+  {
+    "id": "unsupported_allergy",
+    "request": "Get 1 litre of milk under $30 for pickup in 60601 within 6 hours. It must be safe for a severe dairy allergy.",
+    "expected": {"constraint_contains": "allerg"}
+  },
+  {
+    "id": "unsupported_recurrence",
+    "request": "Get 12 eggs under $30 for pickup in 60601 within 6 hours and repeat this order every week.",
+    "expected": {"constraint_contains": "week"}
+  }
+]

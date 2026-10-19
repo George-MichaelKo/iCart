@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "icart"
+version = "0.1.0"
+description = "Local-first shopping missions with scoped offer references"
+requires-python = ">=3.12"
+dependencies = []
+
+[project.optional-dependencies]
+postgres = ["psycopg[binary]==3.3.5"]
+
+[project.scripts]
+icart = "icart.interfaces.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"icart.adapters" = ["migrations/*.sql"]

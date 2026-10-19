@@ -1,0 +1,376 @@
+{
+  "recorded_at": "2026-09-07T19:17:41.341770+00:00",
+  "kind": "development-smoke",
+  "hashes": {
+    "evals/local_intent.json": "0ce07bd66400cbc7f683bde5028934c4b239c800cc577eb197cb169c27f5b021",
+    "src/icart/adapters/ollama.py": "2f70df8d575f85925b48c2b20e213f74cde529db178b76ae831cbae03f98aa1f",
+    "src/icart/application/interpretation.py": "c560928bdb68c17b2f24d6c50fcf18078b4034b13a3c5f51378cbe46a75111c5"
+  },
+  "cases": [
+    {
+      "id": "complete_basket",
+      "passed": true,
+      "draft": {
+        "budget_cents": 3000,
+        "fulfillment": "pickup",
+        "items": [
+          {
+            "product_key": "milk",
+            "quantity": 1,
+            "source_text": "1 litre of milk",
+            "unit": "l"
+          },
+          {
+            "product_key": "eggs",
+            "quantity": 12,
+            "source_text": "12 eggs",
+            "unit": "count"
+          },
+          {
+            "product_key": "rice",
+            "quantity": 1,
+            "source_text": "1 kg of rice",
+            "unit": "kg"
+          }
+        ],
+        "postal_code": "60601",
+        "unsupported_constraints": [],
+        "within_hours": 6
+      },
+      "questions": [],
+      "plan": {
+        "mode": "synthetic",
+        "summary": "Your shopping plan is ready \ud83d\uded2",
+        "status": "ready",
+        "fulfillment": "pickup",
+        "postal_code": "60601",
+        "budget_cents": 3000,
+        "items": [
+          {
+            "item": "milk",
+            "title": "Milk \u00b7 1 litre",
+            "store": "Maple Market (fictional)",
+            "packages": 1,
+            "package_quantity": 1000,
+            "unit": "ml",
+            "subtotal_cents": 350,
+            "available_at": "2026-09-07T21:18:04.647101+00:00",
+            "observed_at": "2026-09-07T19:18:04.647101+00:00"
+          },
+          {
+            "item": "eggs",
+            "title": "Eggs \u00b7 dozen",
+            "store": "Maple Market (fictional)",
+            "packages": 1,
+            "package_quantity": 12,
+            "unit": "count",
+            "subtotal_cents": 400,
+            "available_at": "2026-09-07T21:18:04.647101+00:00",
+            "observed_at": "2026-09-07T19:18:04.647101+00:00"
+          },
+          {
+            "item": "rice",
+            "title": "Rice \u00b7 1 kilogram",
+            "store": "Maple Market (fictional)",
+            "packages": 1,
+            "package_quantity": 1000,
+            "unit": "g",
+            "subtotal_cents": 500,
+            "available_at": "2026-09-07T21:18:04.647101+00:00",
+            "observed_at": "2026-09-07T19:18:04.647101+00:00"
+          }
+        ],
+        "missing_items": [],
+        "subtotal_cents": 1250,
+        "fees_cents": 0,
+        "total_cents": 1250,
+        "total_known": true,
+        "store_count": 1,
+        "warnings": [],
+        "checkout_available": false
+      },
+      "checks": {
+        "complete": true,
+        "items": true,
+        "budget_cents": true,
+        "postal_code": true,
+        "fulfillment": true,
+        "within_hours": true,
+        "grounded_total": true,
+        "ready": true
+      },
+      "metrics": [
+        {
+          "stage": "interpret",
+          "seconds": 23.263,
+          "input_tokens": 394,
+          "output_tokens": 171
+        },
+        {
+          "stage": "tool_call",
+          "seconds": 6.503,
+          "input_tokens": 226,
+          "output_tokens": 50
+        }
+      ]
+    },
+    {
+      "id": "tight_budget",
+      "passed": true,
+      "draft": {
+        "budget_cents": 1150,
+        "fulfillment": "pickup",
+        "items": [
+          {
+            "product_key": "milk",
+            "quantity": 1000,
+            "source_text": "Get 1000 ml of milk",
+            "unit": "ml"
+          },
+          {
+            "product_key": "eggs",
+            "quantity": 12,
+            "source_text": "12 eggs",
+            "unit": "count"
+          },
+          {
+            "product_key": "rice",
+            "quantity": 1000,
+            "source_text": "1000 g of rice",
+            "unit": "g"
+          }
+        ],
+        "postal_code": "60601",
+        "unsupported_constraints": [],
+        "within_hours": 6
+      },
+      "questions": [],
+      "plan": {
+        "mode": "synthetic",
+        "summary": "Your shopping plan is ready \ud83d\uded2",
+        "status": "ready",
+        "fulfillment": "pickup",
+        "postal_code": "60601",
+        "budget_cents": 1150,
+        "items": [
+          {
+            "item": "milk",
+            "title": "Milk \u00b7 1 litre",
+            "store": "Maple Market (fictional)",
+            "packages": 1,
+            "package_quantity": 1000,
+            "unit": "ml",
+            "subtotal_cents": 350,
+            "available_at": "2026-09-07T21:18:24.426821+00:00",
+            "observed_at": "2026-09-07T19:18:24.426821+00:00"
+          },
+          {
+            "item": "eggs",
+            "title": "Eggs \u00b7 half dozen",
+            "store": "Cedar Grocer (fictional)",
+            "packages": 2,
+            "package_quantity": 6,
+            "unit": "count",
+            "subtotal_cents": 350,
+            "available_at": "2026-09-07T21:18:24.426821+00:00",
+            "observed_at": "2026-09-07T19:18:24.426821+00:00"
+          },
+          {
+            "item": "rice",
+            "title": "Rice \u00b7 500 grams",
+            "store": "Cedar Grocer (fictional)",
+            "packages": 2,
+            "package_quantity": 500,
+            "unit": "g",
+            "subtotal_cents": 400,
+            "available_at": "2026-09-07T21:18:24.426821+00:00",
+            "observed_at": "2026-09-07T19:18:24.426821+00:00"
+          }
+        ],
+        "missing_items": [],
+        "subtotal_cents": 1100,
+        "fees_cents": 0,
+        "total_cents": 1100,
+        "total_known": true,
+        "store_count": 2,
+        "warnings": [],
+        "checkout_available": false
+      },
+      "checks": {
+        "complete": true,
+        "items": true,
+        "budget_cents": true,
+        "postal_code": true,
+        "fulfillment": true,
+        "within_hours": true,
+        "grounded_total": true,
+        "ready": true
+      },
+      "metrics": [
+        {
+          "stage": "interpret",
+          "seconds": 13.272,
+          "input_tokens": 405,
+          "output_tokens": 185
+        },
+        {
+          "stage": "tool_call",
+          "seconds": 2.703,
+          "input_tokens": 226,
+          "output_tokens": 50
+        }
+      ]
+    },
+    {
+      "id": "missing_budget",
+      "passed": true,
+      "draft": {
+        "budget_cents": null,
+        "fulfillment": "pickup",
+        "items": [
+          {
+            "product_key": "eggs",
+            "quantity": 12,
+            "source_text": "Get 12 eggs for pickup in 60601 within 6 hours.",
+            "unit": "count"
+          }
+        ],
+        "postal_code": "60601",
+        "unsupported_constraints": [],
+        "within_hours": 6
+      },
+      "questions": [
+        "What is your maximum budget in USD?"
+      ],
+      "checks": {
+        "blocked": true,
+        "clarification": true,
+        "missing_preserved": true
+      },
+      "metrics": [
+        {
+          "stage": "interpret",
+          "seconds": 7.312,
+          "input_tokens": 377,
+          "output_tokens": 106
+        }
+      ]
+    },
+    {
+      "id": "missing_quantity",
+      "passed": true,
+      "draft": {
+        "budget_cents": 3000,
+        "fulfillment": "delivery",
+        "items": [
+          {
+            "product_key": "milk",
+            "quantity": null,
+            "source_text": "Get milk under $30 for delivery in 60601 within 6 hours.",
+            "unit": null
+          }
+        ],
+        "postal_code": "60601",
+        "unsupported_constraints": [],
+        "within_hours": 6
+      },
+      "questions": [
+        "What quantity and unit do you need for milk?"
+      ],
+      "checks": {
+        "blocked": true,
+        "clarification": true,
+        "missing_preserved": true
+      },
+      "metrics": [
+        {
+          "stage": "interpret",
+          "seconds": 8.22,
+          "input_tokens": 378,
+          "output_tokens": 109
+        }
+      ]
+    },
+    {
+      "id": "unsupported_allergy",
+      "passed": true,
+      "draft": {
+        "budget_cents": 3000,
+        "fulfillment": "pickup",
+        "items": [
+          {
+            "product_key": "milk",
+            "quantity": 1,
+            "source_text": "Get 1 litre of milk under $30 for pickup in 60601 within 6 hours. It must be safe for a severe dairy allergy.",
+            "unit": "l"
+          }
+        ],
+        "postal_code": "60601",
+        "unsupported_constraints": [
+          "it must be safe for a severe dairy allergy"
+        ],
+        "within_hours": 6
+      },
+      "questions": [
+        "This local prototype cannot enforce: it must be safe for a severe dairy allergy. Those requirements will not be silently ignored."
+      ],
+      "checks": {
+        "blocked": true,
+        "clarification": true,
+        "restriction_preserved": true
+      },
+      "metrics": [
+        {
+          "stage": "interpret",
+          "seconds": 9.127,
+          "input_tokens": 392,
+          "output_tokens": 138
+        }
+      ]
+    },
+    {
+      "id": "unsupported_recurrence",
+      "passed": true,
+      "draft": {
+        "budget_cents": 3000,
+        "fulfillment": "pickup",
+        "items": [
+          {
+            "product_key": "eggs",
+            "quantity": 12,
+            "source_text": "Get 12 eggs under $30 for pickup in 60601 within 6 hours and repeat this order every week.",
+            "unit": "count"
+          }
+        ],
+        "postal_code": "60601",
+        "unsupported_constraints": [
+          "repeat this order every week"
+        ],
+        "within_hours": 6
+      },
+      "questions": [
+        "This local prototype cannot enforce: repeat this order every week. Those requirements will not be silently ignored."
+      ],
+      "checks": {
+        "blocked": true,
+        "clarification": true,
+        "restriction_preserved": true
+      },
+      "metrics": [
+        {
+          "stage": "interpret",
+          "seconds": 9.15,
+          "input_tokens": 387,
+          "output_tokens": 130
+        }
+      ]
+    }
+  ],
+  "model": {
+    "model": "qwen3:4b-instruct-2507-q4_K_M",
+    "digest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+    "runtime": "0.33.3"
+  },
+  "passed": 6,
+  "completed": 6
+}

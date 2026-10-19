@@ -1,0 +1,225 @@
+{
+  "recorded_at": "2026-09-07T14:20:21.711887+00:00",
+  "kind": "development-smoke",
+  "hashes": {
+    "evals/local_intent.json": "0ce07bd66400cbc7f683bde5028934c4b239c800cc577eb197cb169c27f5b021",
+    "src/icart/adapters/ollama.py": "a3565795a32dfce03ecc040007ffac94ead53d771d1e6c581f1c32bf5876e210",
+    "src/icart/application/interpretation.py": "c560928bdb68c17b2f24d6c50fcf18078b4034b13a3c5f51378cbe46a75111c5"
+  },
+  "cases": [
+    {
+      "id": "complete_basket",
+      "passed": false,
+      "error_type": "ModelFailure",
+      "metrics": [
+        {
+          "stage": "interpret",
+          "seconds": 21.793,
+          "input_tokens": 531,
+          "output_tokens": 105
+        }
+      ]
+    },
+    {
+      "id": "tight_budget",
+      "passed": false,
+      "draft": {
+        "budget_cents": 1150,
+        "fulfillment": "pickup",
+        "items": [
+          {
+            "product_key": "milk",
+            "quantity": 1,
+            "source_text": "1000 ml of milk",
+            "unit": "ml"
+          },
+          {
+            "product_key": "eggs",
+            "quantity": 12,
+            "source_text": "12 eggs",
+            "unit": "count"
+          },
+          {
+            "product_key": "rice",
+            "quantity": 1,
+            "source_text": "1000 g of rice",
+            "unit": "g"
+          }
+        ],
+        "postal_code": "60601",
+        "unsupported_constraints": [],
+        "within_hours": 6
+      },
+      "questions": [
+        "Please restate the quantity for milk using a number and an explicit unit.",
+        "Please restate the quantity for rice using a number and an explicit unit."
+      ],
+      "checks": {
+        "complete": false
+      },
+      "metrics": [
+        {
+          "stage": "interpret",
+          "seconds": 7.787,
+          "input_tokens": 542,
+          "output_tokens": 110
+        }
+      ]
+    },
+    {
+      "id": "missing_budget",
+      "passed": true,
+      "draft": {
+        "budget_cents": null,
+        "fulfillment": "pickup",
+        "items": [
+          {
+            "product_key": "eggs",
+            "quantity": 12,
+            "source_text": "12 eggs",
+            "unit": "count"
+          }
+        ],
+        "postal_code": "60601",
+        "unsupported_constraints": [],
+        "within_hours": 6
+      },
+      "questions": [
+        "What is your maximum budget in USD?"
+      ],
+      "checks": {
+        "blocked": true,
+        "clarification": true,
+        "missing_preserved": true
+      },
+      "metrics": [
+        {
+          "stage": "interpret",
+          "seconds": 3.947,
+          "input_tokens": 514,
+          "output_tokens": 57
+        }
+      ]
+    },
+    {
+      "id": "missing_quantity",
+      "passed": true,
+      "draft": {
+        "budget_cents": 3000,
+        "fulfillment": "delivery",
+        "items": [
+          {
+            "product_key": "milk",
+            "quantity": null,
+            "source_text": "milk",
+            "unit": null
+          }
+        ],
+        "postal_code": "60601",
+        "unsupported_constraints": [
+          "under $30",
+          "within 6 hours"
+        ],
+        "within_hours": 6
+      },
+      "questions": [
+        "What quantity and unit do you need for milk?",
+        "This local prototype cannot enforce: under $30; within 6 hours. Those requirements will not be silently ignored."
+      ],
+      "checks": {
+        "blocked": true,
+        "clarification": true,
+        "missing_preserved": true
+      },
+      "metrics": [
+        {
+          "stage": "interpret",
+          "seconds": 4.518,
+          "input_tokens": 515,
+          "output_tokens": 67
+        }
+      ]
+    },
+    {
+      "id": "unsupported_allergy",
+      "passed": true,
+      "draft": {
+        "budget_cents": 3000,
+        "fulfillment": "pickup",
+        "items": [
+          {
+            "product_key": "milk",
+            "quantity": 1,
+            "source_text": "1 litre of milk",
+            "unit": "l"
+          }
+        ],
+        "postal_code": "60601",
+        "unsupported_constraints": [
+          "safe for a severe dairy allergy"
+        ],
+        "within_hours": 6
+      },
+      "questions": [
+        "This local prototype cannot enforce: safe for a severe dairy allergy. Those requirements will not be silently ignored."
+      ],
+      "checks": {
+        "blocked": true,
+        "clarification": true,
+        "restriction_preserved": true
+      },
+      "metrics": [
+        {
+          "stage": "interpret",
+          "seconds": 7.169,
+          "input_tokens": 529,
+          "output_tokens": 106
+        }
+      ]
+    },
+    {
+      "id": "unsupported_recurrence",
+      "passed": true,
+      "draft": {
+        "budget_cents": 3000,
+        "fulfillment": "pickup",
+        "items": [
+          {
+            "product_key": "eggs",
+            "quantity": 12,
+            "source_text": "12 eggs",
+            "unit": "count"
+          }
+        ],
+        "postal_code": "60601",
+        "unsupported_constraints": [
+          "repeat this order every week"
+        ],
+        "within_hours": 6
+      },
+      "questions": [
+        "This local prototype cannot enforce: repeat this order every week. Those requirements will not be silently ignored."
+      ],
+      "checks": {
+        "blocked": true,
+        "clarification": true,
+        "restriction_preserved": true
+      },
+      "metrics": [
+        {
+          "stage": "interpret",
+          "seconds": 7.032,
+          "input_tokens": 524,
+          "output_tokens": 106
+        }
+      ]
+    }
+  ],
+  "model": {
+    "model": "qwen3:4b-instruct-2507-q4_K_M",
+    "digest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+    "runtime": "0.33.3"
+  },
+  "passed": 4,
+  "completed": 6
+}
